@@ -1,3 +1,6 @@
+import 'package:digital_altier/core/routes/app_routes.dart';
+import 'package:digital_altier/features/measure/presentation/pages/measure_page.dart';
+import 'package:digital_altier/features/sketch/presentation/page/sketch_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/home/presentation/pages/home_page.dart';
@@ -7,12 +10,20 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
 
-      case '/':
+      case AppRoutes.home:
         return MaterialPageRoute(
           builder: (_) => const HomePage(),
         );
 
-      case '/settings':
+      case AppRoutes.measure:
+        return MaterialPageRoute(
+          builder: (_) => const MeasurePage(),
+        );
+      case AppRoutes.sketch:
+        return MaterialPageRoute(
+          builder: (_) => const SketchPage(),
+        );
+      case AppRoutes.settings:
         return MaterialPageRoute(
           builder: (_) => const SettingsPage(),
         );

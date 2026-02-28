@@ -1,23 +1,31 @@
-import 'package:digital_altier/core/theme/app_colors.dart';
+import 'package:digital_altier/core/notifier/route_notifier.dart';
 import 'package:flutter/material.dart';
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
-class NavbarWidget extends StatefulWidget {
-  const NavbarWidget({super.key});
-
-  @override
-  State<NavbarWidget> createState() => _NavbarWidgetState();
-}
-
-class _NavbarWidgetState extends State<NavbarWidget> {
-  final List<BottomNavigationBarItem> items  =  [
-    BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+class NavbarWidget extends StatelessWidget {
+  final List<NavigationDestination> destination = [
+    NavigationDestination(icon: Icon(FontAwesomeIcons.house), label: "Home"),
+    NavigationDestination(icon: Icon(FontAwesomeIcons.rulerHorizontal), label: "Measure"),
+    NavigationDestination(icon: Icon(FontAwesomeIcons.paintbrush), label: "Sketch"),
+    NavigationDestination(icon: Icon(FontAwesomeIcons.gear), label: "Settings"),
   ];
+   NavbarWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(items: items,
-      backgroundColor: AppColors.bg,
-      selectedIconTheme: IconThemeData(fill: 1.0),
-      selectedLabelStyle: TextStyle(color: AppColors.accent, fontWeight: FontWeight.bold),);
+    return ValueListenableBuilder(valueListenable: selectedPageIndexNotifier, builder: (context, index, child){
+      return NavigationBar(destinations: destination,
+        selectedIndex: index,
+        onDestinationSelected: (int valueChanged) {
+
+          if(index == valueChanged) {
+            return;
+          }
+          selectedPageIndexNotifier.value = valueChanged;
+        },
+
+      );
+    });
   }
 }
+
