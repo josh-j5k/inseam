@@ -1,4 +1,4 @@
-# digital_altier
+# inseam
 
 A new Flutter project.
 

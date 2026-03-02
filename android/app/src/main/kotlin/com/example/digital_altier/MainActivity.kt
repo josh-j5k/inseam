@@ -1,4 +1,4 @@
-package com.example.digital_altier
+package com.example.inseam
 
 import io.flutter.embedding.android.FlutterActivity
 

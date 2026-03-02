@@ -1,5 +1,5 @@
-import 'package:digital_altier/core/notifier/route_notifier.dart';
-import 'package:digital_altier/core/routes/app_routes.dart';
+import 'package:inseam/core/notifier/route_notifier.dart';
+import 'package:inseam/core/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import 'core/theme/app_theme.dart';
@@ -16,14 +16,15 @@ class MyApp extends StatelessWidget {
 
       theme: AppTheme.light(),
 
-
       // initialRoute: AppRoutes.home,
       // home: AppRoutes.measure,
-      home: ValueListenableBuilder(valueListenable: selectedPageIndexNotifier, builder: (context, index, child) {
-        return AppRoutes.pages[index];
-      }),
+      home: ValueListenableBuilder(
+        valueListenable: selectedPageIndexNotifier,
+        builder: (context, index, child) {
+          return AppRoutes.pages[index];
+        },
+      ),
       onGenerateRoute: AppRouter.onGenerateRoute,
-
     );
   }
 }

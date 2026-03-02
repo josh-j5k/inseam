@@ -17,19 +17,26 @@ class AppTheme {
         backgroundColor: colorScheme.surface,
         foregroundColor: AppColors.accent,
         centerTitle: true,
-
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: AppColors.bg,
-        indicatorColor: AppColors.secondary.withAlpha(150),
+        backgroundColor: AppColors.secondary.withAlpha(150),
+        indicatorColor: AppColors.secondary.withAlpha(250),
         iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
           if (states.contains(WidgetState.selected)) {
             return const IconThemeData(color: AppColors.accent, size: 28);
           }
           return const IconThemeData(color: Colors.black54, size: 24);
         }),
-        labelTextStyle: WidgetStatePropertyAll(TextStyle(color: Colors.black)),
-
+        labelTextStyle: WidgetStateProperty.resolveWith<TextStyle?>((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const TextStyle(
+              color: AppColors.accent,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            );
+          }
+          return const TextStyle(color: Colors.black54, fontSize: 12);
+        }),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -39,6 +46,7 @@ class AppTheme {
       ),
     );
   }
+
   static ThemeData dark() {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: AppColors.primary,
