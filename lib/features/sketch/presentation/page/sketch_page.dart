@@ -15,9 +15,7 @@ class _SketchPageState extends State<SketchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('INSEAM')),
-      body: Center(
-        child: Text('hello from home', style: AppTextStyles.heading),
-      ),
+      body: Center(child: Text('hello from home')),
 
       bottomNavigationBar: NavbarWidget(),
     );

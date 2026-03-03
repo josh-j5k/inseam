@@ -1,10 +1,14 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inseam/core/routes/app_routes.dart';
+import 'package:inseam/core/theme/app_text_styles.dart';
+import 'package:inseam/core/widgets/avatar_initials_widget.dart';
+import "package:inseam/features/home/data/schedules.dart";
 import 'package:inseam/core/theme/app_colors.dart';
 import 'package:inseam/core/theme/app_spacing.dart';
 import 'package:inseam/core/widgets/navbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:inseam/core/widgets/spacer_widget.dart';
 import 'package:inseam/features/home/presentation/widgets/order_status_box_widget.dart';
+import 'package:inseam/features/home/presentation/widgets/schedule_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,13 +28,27 @@ class _HomePageState extends State<HomePage> {
     super.didChangeDependencies();
   }
 
+  String _selectedStatus = "all orders";
+  final List<String> orderStatusFilter = [
+    "all orders",
+    "completed",
+    "pending",
+    "delivered",
+    "urgent",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(
+              top: 20.0,
+              left: 20,
+              right: 20,
+              bottom: 60,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,12 +60,18 @@ class _HomePageState extends State<HomePage> {
                       spacing: 10,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(radius: 30),
+                        AvatarInitialsWidget(
+                          name: "inseam Manager",
+                          ring: true,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("good morning"),
-                            Text("inseam".toUpperCase()),
+                            Text("Good Morning,", style: AppTextStyles.subtext),
+                            Text(
+                              "inseam".toUpperCase(),
+                              style: AppTextStyles.h1,
+                            ),
                           ],
                         ),
                       ],
@@ -67,18 +91,16 @@ class _HomePageState extends State<HomePage> {
                 SearchBar(
                   hintText: "Search clients, measurements...",
                   hintStyle: WidgetStatePropertyAll(
-                    TextStyle(
-                      color: Color.from(alpha: 0.7, red: 0, green: 0, blue: 0),
-                    ),
+                    TextStyle(color: AppColors.textSecondary),
                   ),
                   leading: Icon(Icons.search),
                   padding: WidgetStatePropertyAll(
                     EdgeInsetsGeometry.only(left: 15, right: 15),
                   ),
                   side: WidgetStatePropertyAll(
-                    BorderSide(width: 1.0, color: Colors.grey[300]!),
+                    BorderSide(width: 1.0, color: AppColors.border),
                   ),
-                  backgroundColor: WidgetStatePropertyAll(Colors.grey[100]),
+                  backgroundColor: WidgetStatePropertyAll(AppColors.cardBg),
                   shape: WidgetStatePropertyAll(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(13.0),
@@ -87,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                   shadowColor: WidgetStatePropertyAll(Colors.transparent),
                 ),
                 SpacerWidget(height: spacing.dividerSm()),
-                Divider(color: Colors.grey[300]),
+                Divider(color: AppColors.border),
                 SpacerWidget(height: spacing.dividerSm()),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -97,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       child: OrderStatusBoxWidget(
                         status: "active",
                         statusCount: 12,
-                        color: Colors.black54,
+                        color: AppColors.textSecondary,
                       ),
                     ),
                     Expanded(
@@ -120,22 +142,30 @@ class _HomePageState extends State<HomePage> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: List.generate(
-                      4,
-                      (index) => Container(
-                        margin: EdgeInsets.only(right: 15),
-                        width: 100,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[100],
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.grey[300]!,
-                            width: 1,
+                    spacing: spacing.paddingXAxisLg(),
+                    children: orderStatusFilter
+                        .map(
+                          (status) => ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _selectedStatus = status;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _selectedStatus == status
+                                  ? AppColors.accent
+                                  : AppColors.button,
+                              foregroundColor: _selectedStatus == status
+                                  ? Colors.white
+                                  : AppColors.textSecondary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            child: Text(status.toUpperCase()),
                           ),
-                        ),
-                      ),
-                    ),
+                        )
+                        .toList(),
                   ),
                 ),
                 SpacerWidget(height: spacing.dividerMd()),
@@ -144,122 +174,31 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: AppColors.textSecondary,
                   ),
                 ),
                 SpacerWidget(height: spacing.dividerSm()),
-                Container(
-                  // height: 100,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: spacing.paddingXAxisLg(),
-                    vertical: spacing.paddingYAxisMd(),
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border(
-                      left: BorderSide(width: 6, color: Colors.blue),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: spacing.paddingXAxisLg(),
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.grey[300],
-                            child: Text(
-                              "MH",
-                              style: TextStyle(
-                                color: Colors.black45,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                if (schedules.isNotEmpty)
+                  Column(
+                    spacing: spacing.paddingXAxisLg(),
+                    children: schedules
+                        .map(
+                          (schedule) => ScheduleWidget(
+                            spacing: spacing,
+                            schedule: schedule,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Mat Harden",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "Wedding Dress Alterations",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              Row(
-                                spacing: 4,
-                                children: [
-                                  Icon(
-                                    Icons.access_time_filled,
-                                    color: Colors.red,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    "Deadline: Today, 2:00PM",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        spacing: 2,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            // iconSize: 10,
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll(
-                                Colors.green.withAlpha(50),
-                              ),
-                            ),
-                            onPressed: () {},
-                            icon: Icon(
-                              FontAwesomeIcons.whatsapp,
-                              color: Colors.green,
-                            ),
-                          ),
-                          IconButton(
-                            style: ButtonStyle(
-                              backgroundColor: WidgetStatePropertyAll(
-                                Colors.blue.withAlpha(50),
-                              ),
-                            ),
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.phone,
-                              color: Colors.blue.shade400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                        )
+                        .toList(),
+                  )
+                else
+                  SizedBox.shrink(),
               ],
             ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, AppRoutes.addClient),
         backgroundColor: AppColors.accent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
         child: Icon(Icons.add, color: Colors.white),

@@ -9,6 +9,7 @@ class AppRoutes {
   static const settings = "/settings";
   static const measure = "/measure";
   static const sketch = "/sketch";
+  static const addClient = "/add-client";
   static const List<Widget> pages = [
     HomePage(),
     MeasurePage(),

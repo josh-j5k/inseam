@@ -16,6 +16,12 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surface,
         foregroundColor: AppColors.accent,
+        titleTextStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: AppColors.accent,
+          fontSize: 22,
+        ),
+        iconTheme: IconThemeData(color: AppColors.accent),
         centerTitle: true,
       ),
       navigationBarTheme: NavigationBarThemeData(
@@ -43,6 +49,24 @@ class AppTheme {
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
         ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        labelStyle: TextStyle(color: AppColors.textSecondary),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
+        ),
+        fillColor: AppColors.cardBg,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.border, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: AppColors.accent, width: 1),
+        ),
+        prefixIconColor: AppColors.textSecondary,
       ),
     );
   }

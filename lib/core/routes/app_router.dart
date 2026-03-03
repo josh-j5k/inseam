@@ -1,4 +1,5 @@
 import 'package:inseam/core/routes/app_routes.dart';
+import 'package:inseam/features/home/presentation/pages/add_client_page.dart';
 import 'package:inseam/features/measure/presentation/pages/measure_page.dart';
 import 'package:inseam/features/sketch/presentation/page/sketch_page.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SketchPage());
       case AppRoutes.settings:
         return MaterialPageRoute(builder: (_) => const SettingsPage());
-
+      case AppRoutes.addClient:
+        return MaterialPageRoute(builder: (_) => const AddClientPage());
       default:
         return MaterialPageRoute(
           builder: (_) =>

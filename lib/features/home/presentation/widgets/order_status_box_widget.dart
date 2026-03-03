@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inseam/core/theme/app_colors.dart';
 
 class OrderStatusBoxWidget extends StatelessWidget {
   final String status;
@@ -17,9 +18,9 @@ class OrderStatusBoxWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       height: 90,
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: AppColors.cardBg,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey[300]!, width: 1),
+        border: Border.all(color: AppColors.border, width: 1),
       ),
       child: Center(
         child: Column(
@@ -37,7 +38,7 @@ class OrderStatusBoxWidget extends StatelessWidget {
             Text(
               status.toUpperCase(),
               style: TextStyle(
-                color: Colors.black54,
+                color: AppColors.textSecondary,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
               ),
