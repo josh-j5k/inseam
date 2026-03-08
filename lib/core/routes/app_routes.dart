@@ -10,6 +10,8 @@ class AppRoutes {
   static const measure = "/measure";
   static const sketch = "/sketch";
   static const addClient = "/add-client";
+  static const addTemplate = "/add-template";
+  static const newMeasurement = "/new-measurement";
   static const List<Widget> pages = [
     HomePage(),
     MeasurePage(),

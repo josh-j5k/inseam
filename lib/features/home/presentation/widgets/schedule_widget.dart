@@ -5,8 +5,6 @@ import 'package:inseam/core/theme/app_spacing.dart';
 import 'package:inseam/core/theme/app_text_styles.dart';
 import 'package:inseam/core/widgets/avatar_initials_widget.dart';
 import 'package:inseam/features/home/data/models/schedule.dart';
-import 'package:inseam/utils/color_from_hash_code.dart';
-import 'package:inseam/utils/get_initials.dart';
 
 class ScheduleWidget extends StatelessWidget {
   final AppSpacing spacing;
@@ -26,7 +24,7 @@ class ScheduleWidget extends StatelessWidget {
         vertical: spacing.paddingYAxisSm(),
       ),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        gradient: AppColors.cardGradientBg,
         borderRadius: BorderRadius.circular(15),
         border: Border(
           left: BorderSide(

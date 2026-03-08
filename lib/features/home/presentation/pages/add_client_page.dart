@@ -16,11 +16,11 @@ class _AddClientPageState extends State<AddClientPage> {
   late AppSpacing spacing;
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     spacing = AppSpacing(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
     );
-    super.didChangeDependencies();
   }
 
   bool quickMeasurement = true;
@@ -108,7 +108,7 @@ class _AddClientPageState extends State<AddClientPage> {
                       onPressed: () {},
                       style: ButtonStyle(
                         backgroundColor: WidgetStatePropertyAll(
-                          AppColors.accent.withAlpha(50),
+                          AppColors.inputBg,
                         ),
                         shape: WidgetStatePropertyAll(
                           RoundedRectangleBorder(
@@ -149,7 +149,7 @@ class _AddClientPageState extends State<AddClientPage> {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.cardBg,
+                    gradient: AppColors.cardGradientBg,
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: AppColors.border, width: 1),
                   ),

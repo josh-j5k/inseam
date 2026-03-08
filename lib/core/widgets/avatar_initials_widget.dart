@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inseam/utils/color_from_hash_code.dart';
-import 'package:inseam/utils/get_initials.dart';
+import 'package:inseam/core/utils/color_from_hash_code.dart';
+import 'package:inseam/core/utils/get_initials.dart';
 
 class AvatarInitialsWidget extends StatelessWidget {
   final String name;

@@ -13,7 +13,7 @@ class RecentActivityWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.border,
+        gradient: AppColors.cardGradientBg,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(

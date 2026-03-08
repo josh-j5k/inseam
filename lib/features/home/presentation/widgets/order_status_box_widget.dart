@@ -18,7 +18,7 @@ class OrderStatusBoxWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       height: 90,
       decoration: BoxDecoration(
-        color: AppColors.cardBg,
+        gradient: AppColors.cardGradientBg,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border, width: 1),
       ),

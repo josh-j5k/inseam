@@ -53,11 +53,12 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         labelStyle: TextStyle(color: AppColors.textSecondary),
+        hintStyle: TextStyle(color: AppColors.textOnPrimary),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColors.border, width: 1),
         ),
-        fillColor: AppColors.cardBg,
+        fillColor: AppColors.inputBg,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColors.border, width: 1),
@@ -67,6 +68,23 @@ class AppTheme {
           borderSide: BorderSide(color: AppColors.accent, width: 1),
         ),
         prefixIconColor: AppColors.textSecondary,
+      ),
+      searchBarTheme: SearchBarThemeData(
+        hintStyle: WidgetStatePropertyAll(
+          TextStyle(color: AppColors.textSecondary),
+        ),
+
+        padding: WidgetStatePropertyAll(
+          EdgeInsetsGeometry.only(left: 15, right: 15),
+        ),
+        side: WidgetStatePropertyAll(
+          BorderSide(width: 1.0, color: AppColors.border),
+        ),
+        backgroundColor: WidgetStatePropertyAll(AppColors.inputBg),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.0)),
+        ),
+        shadowColor: WidgetStatePropertyAll(Colors.transparent),
       ),
     );
   }
