@@ -13,6 +13,7 @@ class AppColors {
   static const border = Color(0xFFC8C8C8);
   static const cardBg = Color(0xFFFBF3E1);
   static const cardGradientBg = GradientCombo.coolMist;
+  static const cardGradientBg2 = GradientCombo.warmCream;
   static const bg = Color(0xFFFBF7FF);
   static const error = Color(0xFFB3261E);
 }

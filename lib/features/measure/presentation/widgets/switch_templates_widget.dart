@@ -9,10 +9,14 @@ import 'package:inseam/features/measure/presentation/widgets/template_grid_item_
 class SwitchTemplatesWidget extends StatefulWidget {
   final AppSpacing spacing;
   final ScrollController? scrollController;
+  final void Function(int stage)? changeStage;
+  final bool showBackButton;
   const SwitchTemplatesWidget({
     super.key,
     required this.spacing,
+    this.changeStage,
     this.scrollController,
+    this.showBackButton = false,
   });
 
   @override
@@ -20,68 +24,111 @@ class SwitchTemplatesWidget extends StatefulWidget {
 }
 
 class _SwitchTemplateWidgetState extends State<SwitchTemplatesWidget> {
+  int? _selectedIndex;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      height: double.infinity,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 4,
+              children: [
+                if (widget.showBackButton)
+                  BackButton(onPressed: () => widget.changeStage!(0)),
+                const Text("Select Template", style: AppTextStyles.h3),
+              ],
+            ),
+            CloseButton(),
+          ],
+        ),
+        SearchBar(
+          onChanged: (String value) {
+            // _onSearchChanged(value);
+          },
+          hintText: "Search points e.g Neck, Waist...",
+          leading: Icon(Icons.search),
+        ),
+        SpacerWidget(height: widget.spacing.dividerSm()),
+        const Divider(),
+        SpacerWidget(height: widget.spacing.dividerSm()),
+        Expanded(
+          child: GridView.count(
+            controller: widget.scrollController ?? ScrollController(),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            mainAxisSpacing: 15,
+            crossAxisSpacing: 15,
+            mainAxisExtent: 260,
             children: [
-              const Text("Select Template", style: AppTextStyles.h3),
-              CloseButton(),
+              for (final (index, item) in templateGridItems.indexed)
+                InkWell(
+                  onTap: () {
+                    if (_selectedIndex == index) {
+                      setState(() {
+                        _selectedIndex = null;
+                      });
+                      return;
+                    }
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: _selectedIndex == index
+                              ? BoxBorder.all(width: 1, color: AppColors.accent)
+                              : BoxBorder.fromBorderSide(BorderSide.none),
+                        ),
+                        child: TemplateGridItemWidget(
+                          spacing: widget.spacing,
+                          item: item,
+                        ),
+                      ),
+                      if (index == _selectedIndex)
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Icon(
+                            Icons.check_circle_rounded,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
             ],
           ),
-          SearchBar(
-            onChanged: (String value) {
-              // _onSearchChanged(value);
-            },
-            hintText: "Search points e.g Neck, Waist...",
-            leading: Icon(Icons.search),
-          ),
-          SpacerWidget(height: widget.spacing.dividerSm()),
-          const Divider(),
-          SpacerWidget(height: widget.spacing.dividerSm()),
-          Expanded(
-            child: GridView.count(
-              controller: widget.scrollController ?? ScrollController(),
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              mainAxisExtent: 260,
-              children: templateGridItems
-                  .map(
-                    (item) => TemplateGridItemWidget(
-                      spacing: widget.spacing,
-                      item: item,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStatePropertyAll(AppColors.accent),
-                    shape: WidgetStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                    _selectedIndex != null
+                        ? AppColors.accent
+                        : AppColors.accent.withAlpha(100),
+                  ),
+                  foregroundColor: WidgetStatePropertyAll(Colors.white),
+                  shape: WidgetStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () {},
-                  child: const Text("Apply Template"),
                 ),
+                onPressed: () {},
+                child: const Text("Apply Template"),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

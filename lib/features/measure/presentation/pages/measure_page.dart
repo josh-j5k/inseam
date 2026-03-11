@@ -9,6 +9,7 @@ import 'package:inseam/core/widgets/navbar_widget.dart';
 import 'package:inseam/core/widgets/spacer_widget.dart';
 import 'package:inseam/features/measure/data/recent_activity.dart';
 import 'package:inseam/features/measure/data/templat_items.dart';
+import 'package:inseam/features/measure/presentation/widgets/add_order_widget.dart';
 import 'package:inseam/features/measure/presentation/widgets/client_lists_widget.dart';
 import 'package:inseam/features/measure/presentation/widgets/recent_activity_widget.dart';
 import 'package:inseam/features/measure/presentation/widgets/template_grid_item_widget.dart';
@@ -74,7 +75,7 @@ class _MeasurePageState extends State<MeasurePage> {
                           // ),
                           onPressed: () => showBottomSheetModal(
                             context: context,
-                            widget: ClientListsWidget(spacing: spacing),
+                            widget: AddOrderWidget(spacing: spacing),
                           ),
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 40),
@@ -124,6 +125,8 @@ class _MeasurePageState extends State<MeasurePage> {
                         ),
                       ),
                       InkWell(
+                        splashColor: AppColors.accent.withAlpha(100),
+
                         onTap: () =>
                             Navigator.pushNamed(context, AppRoutes.addTemplate),
                         child: Container(

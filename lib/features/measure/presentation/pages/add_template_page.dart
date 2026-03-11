@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inseam/core/theme/app_colors.dart';
 import 'package:inseam/core/theme/app_spacing.dart';
 import 'package:inseam/core/theme/app_text_styles.dart';
+import 'package:inseam/core/utils/get_filename.dart';
+import 'package:inseam/core/utils/native_picker.dart';
 import 'package:inseam/core/widgets/spacer_widget.dart';
 import 'package:inseam/features/measure/presentation/widgets/measurement_points_widget.dart';
 
@@ -26,7 +30,8 @@ class _AddTemplateState extends State<AddTemplatePage> {
   }
 
   final List<int> selectedItems = [];
-
+  File? _thumbnail = null;
+  String? thumbnailName = null;
   void setSelectedItems(List<int> items) {
     selectedItems.clear();
     selectedItems.addAll(items);
@@ -97,7 +102,37 @@ class _AddTemplateState extends State<AddTemplatePage> {
                             onChanged: (value) {},
                           ),
                         ),
-                        Expanded(child: Container()),
+                        Expanded(
+                          child: InkWell(
+                            splashColor: AppColors.accent.withAlpha(50),
+                            onTap: () async {
+                              final File? file = await imagePicker();
+                              if (file != null) {
+                                final String name = getFilename(file.path);
+                                final substr = name.length > 17
+                                    ? "${name.substring(0, 16)}..."
+                                    : name;
+
+                                setState(() {
+                                  _thumbnail = file;
+                                  thumbnailName = substr;
+                                });
+                              }
+                            },
+                            child: Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              alignment: WrapAlignment.center,
+                              spacing: 5,
+                              children: [
+                                Icon(
+                                  Icons.image,
+                                  color: const Color.fromARGB(255, 205, 56, 56),
+                                ),
+                                Text(thumbnailName ?? "Select thumbnail"),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],

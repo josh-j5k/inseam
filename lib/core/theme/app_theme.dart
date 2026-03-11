@@ -69,6 +69,7 @@ class AppTheme {
         ),
         prefixIconColor: AppColors.textSecondary,
       ),
+
       searchBarTheme: SearchBarThemeData(
         hintStyle: WidgetStatePropertyAll(
           TextStyle(color: AppColors.textSecondary),
